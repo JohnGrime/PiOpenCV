@@ -27,4 +27,4 @@ example.cpp
 1. See comment regarding Pi swapfile size: https://linuxize.com/post/how-to-install-opencv-on-raspberry-pi/
 2. See configure output regarding adding "${BUILD_DIR}/python_loader" to $PYTHONPATH for development
 
-Most time consuming stage is Build (~40 mins on RPi 4).
+Most time consuming stage is building the OpenCV library (~40 mins on RPi 4).
