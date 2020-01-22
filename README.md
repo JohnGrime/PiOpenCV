@@ -1,8 +1,8 @@
 # PiOpenCV
 
-Scripts to install and build [`OpenCV`](https://opencv.org/) on a [Raspberry Pi](https://www.raspberrypi.org/).
+Scripts to install and build [`OpenCV`](https://opencv.org/) on a [Raspberry Pi](https://www.raspberrypi.org/), and an example image recognition program to test it.
 
-Based on e.g. https://docs.opencv.org/4.2.0/d7/d9f/tutorial_linux_install.html
+Scripts based on e.g. https://docs.opencv.org/4.2.0/d7/d9f/tutorial_linux_install.html
 
 To install and build OpenCV:
 
@@ -27,4 +27,4 @@ example.cpp
 1. See comment regarding Pi swapfile size: https://linuxize.com/post/how-to-install-opencv-on-raspberry-pi/
 2. See configure output regarding adding "${BUILD_DIR}/python_loader" to $PYTHONPATH for development
 
-Most time consuming stage is building the OpenCV library (~40 mins on RPi 4).
+The most time consuming stage is building the OpenCV library (~40 mins on RPi 4).
