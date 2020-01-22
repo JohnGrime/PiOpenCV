@@ -22,11 +22,11 @@ function Main
 	echo "OpenCV installation & setup!"
 	echo ""
 
-#	PrepareSystem
-#	GetSources
-#	Configure
-#	Build
-#	Install
+	PrepareSystem
+	GetSources
+	Configure
+	Build
+	Install
 	UpdateEnvironment
 }
 
