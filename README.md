@@ -14,6 +14,8 @@ To install and build OpenCV, run the `build_opencv_linux.sh` script:
 
 This script will attempt to download the OpenCV sources (and the `opencv_contrib` extra modules), build them, and install the resultant OpenCV libraries on the local system.
 
+The most time consuming stage of the script is building the OpenCV library (~40 mins on RPi 4).
+
 ## Example OpenCV test code
 
 This repository includes a simple test program to check if the OpenCV installation was successful. The example program reads an input image, and attempts to find that image in a different image or live webcam video.
@@ -64,5 +66,3 @@ e.g. in=webcam:1.0:0 (default: 0).
 
 1. See comment regarding Pi swapfile size: https://linuxize.com/post/how-to-install-opencv-on-raspberry-pi/
 2. See configure output regarding adding "${BUILD_DIR}/python_loader" to $PYTHONPATH for development
-
-The most time consuming stage is building the OpenCV library (~40 mins on RPi 4).
