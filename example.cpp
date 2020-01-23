@@ -90,7 +90,7 @@ void printUsage( const char* progname )
     printf("  min   : OPTIONAL minimum N matching features before bounding box drawn (default: 4)\n");
     printf("  every : OPTIONAL run processing every N frames (default: 1)\n");
     printf("  gray  : OPTIONAL use grayscale images (default: yes)\n");
-    printf("  gray  : OPTIONAL flag to superpose reference image onto scene (default: no)\n");
+    printf("  superpose : OPTIONAL flag to superpose reference image onto scene (default: no)\n");
     printf("\n");
     printf("Notes:\n");
     printf("\n");
