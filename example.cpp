@@ -71,7 +71,7 @@ void LoadImage(
         exit(-1);
     }
     if (grayscale) cv::cvtColor(img, img, cv::COLOR_BGR2GRAY);
-};
+}
 
 //
 // Show a brief user guide.
