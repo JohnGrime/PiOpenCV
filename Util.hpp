@@ -183,45 +183,6 @@ class String
 };
 
 //
-// Split up command line argments, create key => values map.
-//
-
-void ParseArgs(
-    int argc, char* argv[],
-    std::map<std::string,std::vector<std::string>>& params,
-    const char* keyval_sep = "=", const char* val_sep = ":" )
-{
-    std::string key, val;
-    std::vector<std::string> toks;
-
-    for( int i=1; i<argc; i++ )
-    {
-        if (String::Tokenize(argv[i],toks,keyval_sep)<2) continue;
-        
-        key = toks[0];
-        val = toks[1];
-
-        String::Tokenize(val,toks,val_sep);
-
-        params[key] = toks;
-    }
-}
-
-//
-// Try to convert svec[idx] into a numerical value; return false if token
-// found but unconvertable, else true.
-//
-
-template<typename T>
-bool ToNumberIfExists(
-	const std::vector<std::string>& svec,
-	size_t idx,
-	T& val )
-{
-    return (idx>=svec.size()) || Util::String::ToNumber(svec[idx],val);
-}
-
-//
 // Running statistics, based on algorithms of B. P. Welford
 // (via Knuth, "The Art of Computer Programming").
 //
