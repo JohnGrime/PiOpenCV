@@ -352,6 +352,10 @@ int main( int argc, char* argv[] )
                 auto process = timings.stats_vec[process_idx].mean;
                 if (process>0) printf(" ; notional max fps is %.2f", 1.0/process);
 
+                printf(" [ ");
+                for (const auto& ref: rec.references) printf("%d ", (int)ref.matches.size());
+                printf("]");
+
                 printf("\n");
 
                 if (nFound>0) {
