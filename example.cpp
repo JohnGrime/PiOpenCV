@@ -80,28 +80,28 @@ void LoadImage(
 void printUsage( const char* progname )
 {
     printf("\n");
-    printf("Usage : %s find=path [in=path[:scale[:webcamIndex]]] [using=x] [min=N] [every=N] [gray=yes|no] [superpose=yes|no]", progname);
+    printf("Usage : %s find=path [in=path[:scale[:webcamIndex]]] [using=x] [min=N] [every=N] [gray=yes|no] [superpose=yes|no]\n", progname);
     printf("\n");
-    printf("Where:");
+    printf("Where:\n");
     printf("\n");
-    printf("  find  : path to image to detect");
-    printf("  in    : OPTIONAL path to image in which to search (default: 'webcam', i.e. use webcam feed)");
-    printf("  using : OPTIONAL algorithm to use, one of 'SURF', 'SIFT', or 'ORB' (default: SIFT)");
-    printf("  min   : OPTIONAL minimum N matching features before bounding box drawn (default: 4)");
-    printf("  every : OPTIONAL run processing every N frames (default: 1)");
-    printf("  gray  : OPTIONAL use grayscale images (default: yes)");
-    printf("  gray  : OPTIONAL flag to superpose reference image onto scene (default: no)");
+    printf("  find  : path to image to detect\n");
+    printf("  in    : OPTIONAL path to image in which to search (default: 'webcam', i.e. use webcam feed)\n");
+    printf("  using : OPTIONAL algorithm to use, one of 'SURF', 'SIFT', or 'ORB' (default: SIFT)\n");
+    printf("  min   : OPTIONAL minimum N matching features before bounding box drawn (default: 4)\n");
+    printf("  every : OPTIONAL run processing every N frames (default: 1)\n");
+    printf("  gray  : OPTIONAL use grayscale images (default: yes)\n");
+    printf("  gray  : OPTIONAL flag to superpose reference image onto scene (default: no)\n");
     printf("\n");
-    printf("Notes:");
+    printf("Notes:\n");
     printf("\n");
-    printf("The SURF and ORB algorithms can be accompanied with algorithm-specific data;");
-    printf("  - for SURF, this is the Hessian tolerance e.g. 'using=SURF:400' (default value: 400')");
-    printf("  - for ORB, this is the number of features e.g. 'using=ORB:500' (default value: 500')");
+    printf("The SURF and ORB algorithms can be accompanied with algorithm-specific data;\n");
+    printf("  - for SURF, this is the Hessian tolerance e.g. 'using=SURF:400' (default value: 400')\n");
+    printf("  - for ORB, this is the number of features e.g. 'using=ORB:500' (default value: 500')\n");
     printf("\n");
-    printf("The 'in' parameter can be decorated with a scale value for the data, e.g.: in=webcam:0.5,");
-    printf("in=mypic.png:1.5. The default scale value is 1.0 (i.e., no scaling will be performed).");
-    printf("If webcam use is specified, a further webcam index can be provided as a third parameter,");
-    printf("e.g. in=webcam:1.0:0 (default: 0).");
+    printf("The 'in' parameter can be decorated with a scale value for the data, e.g.: in=webcam:0.5,\n");
+    printf("in=mypic.png:1.5. The default scale value is 1.0 (i.e., no scaling will be performed).\n");
+    printf("If webcam use is specified, a further webcam index can be provided as a third parameter,\n");
+    printf("e.g. in=webcam:1.0:0 (default: 0).\n");
     printf("\n");
 
     exit(-1);
