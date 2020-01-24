@@ -302,8 +302,7 @@ int main( int argc, char* argv[] )
 
                 const auto& ref = rec.references[i];
 
-                if (ref.ignore == true) continue;
-                if ((int)ref.matches.size() < minMatches) continue;
+                if (ref.ignore || !ref.present) continue;
 
                 const auto& img_ref = ref_imgs[i];
 

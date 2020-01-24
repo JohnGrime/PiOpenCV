@@ -223,16 +223,28 @@ struct Recognizer
 	// Describes a reference image to find in scene. Note: does not store the
 	// actual pixel data, only features derived from it.
 	//
+	// For a valid homography transform, several things must be true:
+	//
+	// 1. Sufficient feature matches of required quality were detected.
+	// 2. Homography matrix was successfully calculated.
+	//
+	// Note that the existance of 1 does not imply 2; homography calculation
+	// can fail! It's therefore not enough to simply check matches.size(). We
+	// could ALSO check transform.empty(), provided that we explicitly "empty"
+	// transform variable of each ReferenceImage in ProcessImage(), but this
+	// may introduce some overhead. Simpler and faster to just store a single
+	// boolean flag ("present") to check as a single source of truth.
+	//
 	struct ReferenceImage
 	{
-		bool ignore;
-		Features features;
-		Matches matches;
-	    cv::Mat transform; // valid where matches.size() > specified minimum.
+		bool ignore, present;
+		Features features; // features used for matching
+		Matches matches;   // only "good" matches stored
+	    cv::Mat transform; // homography; valid where present == true
 	};
 
 	//
-	// Timings for different aspects of the last call to ProcessImage()
+	// Timings for different aspects of the ProcessImage() call
 	//
 	struct PerformanceTimings
 	{
@@ -284,7 +296,10 @@ struct Recognizer
 		
 		TimeThis _(perf.process, Time::Now);
 
-		for (auto& ref : references) ref.matches.clear();
+		for (auto& ref : references) {
+			ref.present = false;
+			ref.matches.clear();
+		}
 					
 		// Detect features in input image; if too few, bail here (4 features
         // needed for homography calculation)
@@ -293,7 +308,9 @@ struct Recognizer
 			if (dmp.GetFeatures(m, features_) < 4) return returnValue;
 		}
 
-		// Check image against reference images
+		// Check image against reference images. Note that this is O(N); we
+		// could instead use some sort of fancy tree to search on features
+		// to reduce this complexity, but I'm not sure it's worth it yet.
 		for (auto& ref : references) {
 			// Skip ignored images
 			if (ref.ignore == true) continue;
@@ -317,8 +334,9 @@ struct Recognizer
 					Features::HomographyType::RHO) != true) continue;
 			}
 			
-			// At this point, we have sufficient matches & valid homography to
+			// At this point, we have sufficient matches & a valid homography;
 			// consider this reference image to be recognized in the input.
+			ref.present = true;
 			returnValue++;
 		}
 				
