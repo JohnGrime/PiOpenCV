@@ -86,7 +86,7 @@ void printUsage( const char* progname )
     printf("\n");
     printf("  find  : path to image to detect\n");
     printf("  in    : OPTIONAL path to image in which to search (default: 'webcam', i.e. use webcam feed)\n");
-    printf("  using : OPTIONAL algorithm to use, one of 'SURF', 'SIFT', or 'ORB' (default: SIFT)\n");
+    printf("  using : OPTIONAL algorithm to use, one of 'SURF', 'SIFT', 'ORB', or 'AKAZE' (default: ORB)\n");
     printf("  min   : OPTIONAL minimum N matching features before bounding box drawn (default: 4)\n");
     printf("  every : OPTIONAL run processing every N frames (default: 1)\n");
     printf("  gray  : OPTIONAL use grayscale images (default: yes)\n");
@@ -127,7 +127,7 @@ int main( int argc, char* argv[] )
     std::map<std::string,std::vector<std::string>> params {
         { "find",      {""} },
         { "in",        {"webcam"} },
-        { "using",      {"SIFT"} },
+        { "using",      {"ORB"} },
         { "min",       {"5"} },
         { "every",     {"1"} },
         { "gray",      {"yes"} },
@@ -183,20 +183,7 @@ int main( int argc, char* argv[] )
 
         std::transform( algo.begin(), algo.end(), algo.begin(), [](int x){ return std::tolower(x); } );
 
-        if (algo=="sift") {
-            rec.Prepare(Type::SIFT);
-        }
-        else if (algo=="surf") {
-            int minHessian = 400;
-
-            if (!ToNumberIfExists(algo_info,1,minHessian)) {
-                printf("SURF minHessian '%s' isn't an integer\n", algo_info[1].c_str());
-                exit(-1);
-            }
-
-            rec.Prepare(Type::SURF, minHessian);
-        }
-        else if(algo=="orb") {
+        if(algo=="orb") {
             // Default nFeatures is 500, but this tends not to work so well.
             // OpenCV docs indicate NORM_HAMMING should be used with ORB.
             // If WTA_K is 3 or 4 in ORB constructor (default: 2), use NORM_HAMMING2
@@ -209,6 +196,22 @@ int main( int argc, char* argv[] )
             }
 
             rec.Prepare(Type::ORB, nFeatures);
+        }
+        else if(algo=="akaze") {
+            rec.Prepare(Type::AKAZE);
+        }
+        else if (algo=="sift") {
+            rec.Prepare(Type::SIFT);
+        }
+        else if (algo=="surf") {
+            int minHessian = 400;
+
+            if (!ToNumberIfExists(algo_info,1,minHessian)) {
+                printf("SURF minHessian '%s' isn't an integer\n", algo_info[1].c_str());
+                exit(-1);
+            }
+
+            rec.Prepare(Type::SURF, minHessian);
         }
         else {
             printf("Unknown recogniser type %s\n", algo.c_str());

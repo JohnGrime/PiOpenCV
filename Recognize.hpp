@@ -132,7 +132,7 @@ struct Features
 //
 struct DetectorMatcherPair
 {
-	enum class Type {ORB, SIFT, SURF};
+	enum class Type {ORB, AKAZE, SIFT, SURF};
 	
 	Detector detector;
 	Matcher matcher;
@@ -161,6 +161,12 @@ struct DetectorMatcherPair
 				break;
 			}
 			
+			case Type::AKAZE: {
+				detector = cv::AKAZE::create();
+				matcher = cv::BFMatcher::create(cv::NORM_HAMMING);
+				break;
+			}
+
 #if defined(HAVE_OPENCV_XFEATURES2D)
 			case Type::SIFT: {
 				detector = cv::xfeatures2d::SIFT::create();
