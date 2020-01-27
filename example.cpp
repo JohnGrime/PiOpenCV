@@ -86,7 +86,7 @@ void printUsage( const char* progname )
     printf("\n");
     printf("  find  : path to image to detect\n");
     printf("  in    : OPTIONAL path to image in which to search (default: 'webcam', i.e. use webcam feed)\n");
-    printf("  using : OPTIONAL algorithm to use, one of 'SURF', 'SIFT', 'ORB', or 'AKAZE' (default: ORB)\n");
+    printf("  using : OPTIONAL algorithm to use, one of 'AKAZE', 'ORB', 'FREAK', 'SIFT', or 'SURF' (default: ORB)\n");
     printf("  min   : OPTIONAL minimum N matching features before bounding box drawn (default: 4)\n");
     printf("  every : OPTIONAL run processing every N frames (default: 1)\n");
     printf("  gray  : OPTIONAL use grayscale images (default: yes)\n");
@@ -196,6 +196,9 @@ int main( int argc, char* argv[] )
             }
 
             rec.Prepare(Type::ORB, nFeatures);
+        }
+        else if(algo=="freak") {
+            rec.Prepare(Type::FREAK);
         }
         else if(algo=="akaze") {
             rec.Prepare(Type::AKAZE);

@@ -132,7 +132,7 @@ struct Features
 //
 struct DetectorMatcherPair
 {
-	enum class Type {ORB, AKAZE, SIFT, SURF};
+	enum class Type {AKAZE, FREAK, ORB, SIFT, SURF};
 	
 	Detector detector;
 	Matcher matcher;
@@ -150,6 +150,12 @@ struct DetectorMatcherPair
 	{
 		switch (type)
 		{
+			case Type::AKAZE: {
+				detector = cv::AKAZE::create();
+				matcher = cv::BFMatcher::create(cv::NORM_HAMMING);
+				break;
+			}
+
 			// Default nFeatures is 500, but this tends not to work so well.
 			// OpenCV docs indicate NORM_HAMMING should be used with ORB.
 			// If WTA_K 3 or 4 in ORB constructor (def: 2), use NORM_HAMMING2
@@ -161,12 +167,6 @@ struct DetectorMatcherPair
 				break;
 			}
 			
-			case Type::AKAZE: {
-				detector = cv::AKAZE::create();
-				matcher = cv::BFMatcher::create(cv::NORM_HAMMING);
-				break;
-			}
-
 #if defined(HAVE_OPENCV_XFEATURES2D)
 			case Type::SIFT: {
 				detector = cv::xfeatures2d::SIFT::create();
@@ -178,6 +178,14 @@ struct DetectorMatcherPair
 				param = (param<0) ? 400 : param; // min Hessian
 				detector = cv::xfeatures2d::SURF::create(param);
 				matcher = cv::FlannBasedMatcher::create();
+				break;
+			}
+
+			// This won't work properly yet; I need to combine the FREAK
+			// descriptors with a different feature detector!
+			case Type::FREAK: {
+				detector = cv::xfeatures2d::FREAK::create();
+				matcher = cv::BFMatcher::create(cv::NORM_HAMMING);
 				break;
 			}
 #endif
